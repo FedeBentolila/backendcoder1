@@ -3,6 +3,8 @@ import express from 'express';
 import { rutaProducto } from './routes/productos.js';
 import { rutaCarrito } from './routes/carrito.js';
 
+import { ConexionMongo } from './config.js';
+
 const aplicacion = express();
 
 const PUERTO = 8080;
@@ -25,3 +27,5 @@ const conexionServidor = aplicacion.listen(PUERTO, () => {
 conexionServidor.on("error", (error) =>
   console.log(`Ha ocurrido un error: ${error}`)
 );
+
+ConexionMongo()
