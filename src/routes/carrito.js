@@ -1,9 +1,11 @@
 import express from 'express';
-import { Contenedor } from '../contenedor/contenedorFs.js';
+import ContenedorCarrito from '../daos/carrito/carritoDaoFs.js'
+import ContenedorProductos from '../daos/productos/productosDaoFs.js'
+// import { Contenedor } from '../contenedor/contenedorFs.js';
 const rutaCarrito = express.Router();
 
-const carritos = new Contenedor('src/db/carritos.json');
-const productos = new Contenedor('src/db/productos.json');
+const carritos = new ContenedorCarrito();
+const productos = new ContenedorProductos();
 
 
 //Endpoints

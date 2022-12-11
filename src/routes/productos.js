@@ -1,12 +1,13 @@
 import express from 'express';
-import { Contenedor } from '../contenedor/contenedorFs.js';
+import Contenedor from '../daos/productos/productosDaoFs.js';
+// import { Contenedor } from '../contenedor/contenedorFs.js';
 
 const { Router } = express;
 const rutaProducto = Router();
 
 const admin= true;
 
-const productos = new Contenedor('src/db/productos.json');
+const productos = new Contenedor();
 
 
 function middleware(peticion, respuesta, next){
