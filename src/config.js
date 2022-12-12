@@ -14,6 +14,15 @@ const productosSchema= new Schema({
     id:{type: Number},
 })
 
+const carritosCollection='carritos';
+const carritosSchema= new Schema({
+    id:{type: Number},
+    timestamp:{type: String},
+    productos:{type: Array}
+
+})
+
+export const carritosmodule= mongoose.model(carritosCollection, carritosSchema)
 export const productosmodule= mongoose.model(productosCollection, productosSchema);
 
 export async function ConexionMongo() {
