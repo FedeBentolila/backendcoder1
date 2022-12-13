@@ -42,6 +42,49 @@ let dateStr =
 
       } 
 
+      async getByIdFb(idAbuscar){
+        const query= db.collection(this.coleccion);
+            let id= idAbuscar
+            const doc= query.doc(`${id}`);
+            const item= await doc.get();
+            const response= item.data();
+            return response
+      }
+
+      async saveFb(objetox){
+            const query= db.collection(this.coleccion);
+            const querySnapshot= await query.get()
+            let docs =querySnapshot.docs;
+            let id=docs.length+1;
+            objetox.id=id;
+            objetox.timestamp= dateStr;
+            let doc=query.doc(`${id}`);
+            await doc.create(objetox)
+
+      }
+
+      async updateFb(idabuscar, objeto){
+            const query= db.collection(this.coleccion);
+            let id= idabuscar;
+            const doc= query.doc(`${id}`);
+            objeto.id=id;
+            objeto.timestamp= dateStr;
+            const item= await doc.update(objeto);
+
+      }
+
+      async deleteFb(idabuscar){
+        const query= db.collection(this.coleccion);
+        let id= idabuscar;
+        const doc= query.doc(`${id}`);
+        
+        await doc.delete();
+
+  }
+
+
+
+
 
 
 

@@ -59,11 +59,16 @@ rutaProducto.get('/productos/:id', (peticion, respuesta) => {
   productosdeMongo.getByIDmongo(id).then((res)=>{
     console.log(res)
     //respuesta.json(res)
-  })
+  }) 
 
   productos.getByID(id).then((res) => {
     respuesta.json(res);
   });
+
+  productosdeFB.getByIdFb(id).then((res)=>{
+    console.log(res)
+    //respuesta.json(res)
+  }) 
 
   
 
@@ -72,12 +77,16 @@ rutaProducto.get('/productos/:id', (peticion, respuesta) => {
 rutaProducto.post('/productos', middleware, (peticion, respuesta) => {
   const producto = peticion.body;
 
-  productosdeMongo.saveMongo(producto).then(() => {
+   productosdeMongo.saveMongo(producto).then(() => {
     // respuesta.render("formulario", {});
-   });
+   }); 
 
  productos.Save(producto).then(() => {
     respuesta.render("formulario", {});
+  });
+
+  productosdeFB.saveFb(producto).then(() => {
+   
   });
 
   
@@ -94,6 +103,8 @@ rutaProducto.put('/productos/:id', middleware, async (peticion, respuesta) => {
 
   productosdeMongo.updateMongo(idProducto, producto)
 
+  productosdeFB.updateFb(idProducto, producto)
+
   respuesta.send("ok");
 }); 
 
@@ -106,6 +117,10 @@ rutaProducto.put('/productos/:id', middleware, async (peticion, respuesta) => {
 
    productos.deleteById(id).then((res) => {
     respuesta.json("producto eliminado");
+  }); 
+
+  productosdeFB.deleteFb(id).then((res) => {
+  
   }); 
   
 }); 

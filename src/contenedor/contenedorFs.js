@@ -56,7 +56,6 @@ export class Contenedor {
     objeto.timestamp= dateStr
     archivoParseado.push(objeto);
     await fs.promises.writeFile(this.nombre, JSON.stringify(archivoParseado, null, 2));
-    console.log(id)
     return id;
   }
 
