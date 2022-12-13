@@ -3,6 +3,9 @@ import express from 'express';
 import Contenedor from '../daos/productos/productosDaoFs.js';
 import  ContenedorMongo  from '../daos/productos/productosDaoMongo.js'
 
+import ContenedorFB from '../daos/productos/productosDaoFb.js';
+
+let productosdeFB= new ContenedorFB();
 
 let productosdeMongo= new ContenedorMongo();
 
@@ -32,14 +35,19 @@ rutaProducto.get("/", (peticion, respuesta) => {
 
 rutaProducto.get("/productos", (peticion, respuesta) => {
   
-  productosdeMongo.getAllmongo().then((res)=>{
+   productosdeMongo.getAllmongo().then((res)=>{
      console.log(res)
     //respuesta.json(res)
-  }) 
+  })  
 
    productos.getAll().then((res) => {
     respuesta.json(res);
   }); 
+
+  productosdeFB.getAllfbproductos().then((res)=>{
+    console.log(res)
+   //respuesta.json(res)
+ }) 
 
 
 });

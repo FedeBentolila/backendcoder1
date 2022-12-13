@@ -5,6 +5,8 @@ import { rutaCarrito } from './routes/carrito.js';
 
 import { ConexionMongo } from './config.js';
 
+import { ConexionFb } from './config.js';
+
 const aplicacion = express();
 
 const PUERTO = 8080;
@@ -29,3 +31,4 @@ conexionServidor.on("error", (error) =>
 );
 
 ConexionMongo()
+
