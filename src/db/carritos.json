@@ -1,78 +1,44 @@
 [
   {
+    "productos": [
+      {
+        "title": "lapiz",
+        "description": "lapiz negro",
+        "price": "100",
+        "code": "35",
+        "stock": "10",
+        "thumbnail": "https://gerady.com.ar/wp-content/uploads/2019/06/LA49136.jpg",
+        "id": 1,
+        "timestamp": "14/12/2022 00:34:51"
+      },
+      {
+        "title": "carpeta",
+        "description": "carpeta estudio",
+        "price": "200",
+        "code": "25",
+        "stock": "10",
+        "thumbnail": "https://www.congresoinsumos.com.ar/productos/C2505.jpg",
+        "id": 2,
+        "timestamp": "14/12/2022 00:34:51"
+      }
+    ],
     "id": 1,
-    "timestamp": "13/12/2022 22:09:31",
-    "productos": []
+    "timestamp": "14/12/2022 00:44:05"
   },
   {
     "productos": [
       {
-        "title": "carpeta",
-        "description": "carpeta estudio",
+        "title": "lapiz",
+        "description": "lapiz negro",
         "price": "100",
-        "code": "02",
+        "code": "35",
         "stock": "10",
-        "thumbnail": "http://d3ugyf2ht6aenh.cloudfront.net/stores/001/144/668/products/88221-de48988d9c3b38378e16046059719006-640-0.png",
-        "id": 3,
-        "timestamp": "20/11/2022 01:12:54"
+        "thumbnail": "https://gerady.com.ar/wp-content/uploads/2019/06/LA49136.jpg",
+        "id": 1,
+        "timestamp": "14/12/2022 00:34:51"
       }
     ],
     "id": 2,
-    "timestamp": "13/12/2022 21:52:18"
-  },
-  {
-    "productos": [],
-    "id": 3,
-    "timestamp": "09/12/2022 20:13:54"
-  },
-  {
-    "productos": [],
-    "id": 4,
-    "timestamp": "09/12/2022 20:15:11"
-  },
-  {
-    "productos": [],
-    "id": 5,
-    "timestamp": "09/12/2022 20:51:31"
-  },
-  {
-    "productos": [],
-    "id": 6,
-    "timestamp": "11/12/2022 23:50:37"
-  },
-  {
-    "productos": [],
-    "id": 7,
-    "timestamp": "12/12/2022 00:18:20"
-  },
-  {
-    "productos": [],
-    "id": 8,
-    "timestamp": "12/12/2022 00:23:39"
-  },
-  {
-    "productos": [],
-    "id": 9,
-    "timestamp": "12/12/2022 00:31:12"
-  },
-  {
-    "productos": [],
-    "id": 10,
-    "timestamp": "12/12/2022 02:06:24"
-  },
-  {
-    "productos": [],
-    "id": 11,
-    "timestamp": "12/12/2022 02:10:01"
-  },
-  {
-    "productos": [],
-    "id": 12,
-    "timestamp": "12/12/2022 02:14:48"
-  },
-  {
-    "productos": [],
-    "id": 13,
-    "timestamp": "13/12/2022 20:58:11"
+    "timestamp": "14/12/2022 00:44:05"
   }
 ]
