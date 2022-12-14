@@ -1,128 +1,110 @@
-import express from 'express';
+import express from "express";
 
-import Contenedor from '../daos/productos/productosDaoFs.js';
-import  ContenedorMongo  from '../daos/productos/productosDaoMongo.js'
+import Contenedor from "../daos/productos/productosDaoFs.js";
+import ContenedorMongo from "../daos/productos/productosDaoMongo.js";
 
-import ContenedorFB from '../daos/productos/productosDaoFb.js';
+import ContenedorFB from "../daos/productos/productosDaoFb.js";
 
-let productosdeFB= new ContenedorFB();
+let productosdeFB = new ContenedorFB();
 
-let productosdeMongo= new ContenedorMongo();
-
+let productosdeMongo = new ContenedorMongo();
 
 const { Router } = express;
 const rutaProducto = Router();
 
-const admin= true;
+const admin = true;
 
 const productos = new Contenedor();
 
-
-function middleware(peticion, respuesta, next){
-  if (admin==true){
-    next()
-  }else{
-    respuesta.status(403).send({error: -1, descripcion:'ruta no autorizada'})
+function middleware(peticion, respuesta, next) {
+  if (admin == true) {
+    next();
+  } else {
+    respuesta
+      .status(403)
+      .send({ error: -1, descripcion: "ruta no autorizada" });
   }
 }
-
 
 //Endpoints
 
 rutaProducto.get("/", (peticion, respuesta) => {
   respuesta.render("formulario", {});
-}); 
-
-rutaProducto.get("/productos", (peticion, respuesta) => {
-  
-   productosdeMongo.getAllmongo().then((res)=>{
-     console.log(res)
-    //respuesta.json(res)
-  })  
-
-   productos.getAll().then((res) => {
-    respuesta.json(res);
-  }); 
-
-  productosdeFB.getAllfbproductos().then((res)=>{
-    console.log(res)
-   //respuesta.json(res)
- }) 
-
-
 });
 
+rutaProducto.get("/productos", (peticion, respuesta) => {
+  productosdeMongo.getAllmongo().then((res) => {
+    console.log(res);
+    //respuesta.json(res)
+  });
 
-rutaProducto.get('/productos/:id', (peticion, respuesta) => {
+  productos.getAll().then((res) => {
+    respuesta.json(res);
+  });
+
+  productosdeFB.getAllfbproductos().then((res) => {
+    console.log(res);
+    //respuesta.json(res)
+  });
+});
+
+rutaProducto.get("/productos/:id", (peticion, respuesta) => {
   const id = parseInt(peticion.params.id);
 
-  productosdeMongo.getByIDmongo(id).then((res)=>{
-    console.log(res)
+  productosdeMongo.getByIDmongo(id).then((res) => {
+    console.log(res);
     //respuesta.json(res)
-  }) 
+  });
 
   productos.getByID(id).then((res) => {
     respuesta.json(res);
   });
 
-  productosdeFB.getByIdFb(id).then((res)=>{
-    console.log(res)
+  productosdeFB.getByIdFb(id).then((res) => {
+    console.log(res);
     //respuesta.json(res)
-  }) 
+  });
+});
 
-  
-
-}); 
-
-rutaProducto.post('/productos', middleware, (peticion, respuesta) => {
+rutaProducto.post("/productos", middleware, (peticion, respuesta) => {
   const producto = peticion.body;
 
-   productosdeMongo.saveMongo(producto).then(() => {
+  productosdeMongo.saveMongo(producto).then(() => {
     // respuesta.render("formulario", {});
-   }); 
+  });
 
- productos.Save(producto).then(() => {
+  productos.Save(producto).then(() => {
     respuesta.render("formulario", {});
   });
 
-  productosdeFB.saveFb(producto).then(() => {
-   
-  });
-
-  
-  
+  productosdeFB.saveFb(producto).then(() => {});
 });
 
-
-
-rutaProducto.put('/productos/:id', middleware, async (peticion, respuesta) => {
+rutaProducto.put("/productos/:id", middleware, async (peticion, respuesta) => {
   const idProducto = parseInt(peticion.params.id);
   const producto = peticion.body;
 
   await productos.update(idProducto, producto);
 
-  productosdeMongo.updateMongo(idProducto, producto)
+  productosdeMongo.updateMongo(idProducto, producto);
 
-  productosdeFB.updateFb(idProducto, producto)
+  productosdeFB.updateFb(idProducto, producto);
 
   respuesta.send("ok");
-}); 
+});
 
- rutaProducto.delete('/productos/:id', middleware, (peticion, respuesta) => {
+rutaProducto.delete("/productos/:id", middleware, (peticion, respuesta) => {
   const id = parseInt(peticion.params.id);
 
   productosdeMongo.deletemongo(id).then(() => {
     //respuesta.json("producto eliminado");
   });
 
-   productos.deleteById(id).then((res) => {
+  productos.deleteById(id).then((res) => {
     respuesta.json("producto eliminado");
-  }); 
+  });
 
-  productosdeFB.deleteFb(id).then((res) => {
-  
-  }); 
-  
-}); 
+  productosdeFB.deleteFb(id).then((res) => {});
+});
 
 export { rutaProducto };

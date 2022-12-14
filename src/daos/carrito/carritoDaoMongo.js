@@ -1,9 +1,9 @@
-import {ContenedorMongo} from "../../contenedor/contenedorMongo.js";
+import { ContenedorMongo } from "../../contenedor/contenedorMongo.js";
 
-class carritosDaoMongo extends ContenedorMongo{
-    constructor(){
-        super('carritos');
-    }
+class carritosDaoMongo extends ContenedorMongo {
+  constructor() {
+    super("carritos");
+  }
 }
 
 export default carritosDaoMongo;

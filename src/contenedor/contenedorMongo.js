@@ -1,5 +1,3 @@
-
-
 import { productosmodule } from "../config.js";
 import { carritosmodule } from "../config.js";
 
@@ -18,116 +16,111 @@ let dateStr =
   ("00" + date.getSeconds()).slice(-2);
 
 export class ContenedorMongo {
-    constructor(nombre) {
-      this.nombre = nombre;
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+
+  async getAllmongo() {
+    const archivo = await productosmodule.find();
+    return archivo;
+  }
+
+  async getAllcarritosMongo() {
+    const archivo = await carritosmodule.find({});
+    return archivo;
+  }
+
+  async getByIDmongo(idabuscar) {
+    try {
+      let objetobuscado = await productosmodule.find({
+        id: { $eq: idabuscar },
+      });
+      console.log(objetobuscado);
+      return objetobuscado;
+    } catch (error) {
+      console.log("error al buscar el id" + error);
     }
+  }
 
-    async getAllmongo() {
-       const archivo = await productosmodule.find();
-       return archivo
-      } 
-
-    async getAllcarritosMongo(){
-      const archivo = await carritosmodule.find({});
-       return archivo
-
+  async getByIDcarritosmongo(idabuscar) {
+    try {
+      let objetobuscado = await carritosmodule.find({ id: { $eq: idabuscar } });
+      return objetobuscado;
+    } catch (error) {
+      console.log("error al buscar el id" + error);
     }
+  }
 
-      async getByIDmongo(idabuscar) {
-        try {
-          let objetobuscado= await productosmodule.find({"id": {$eq: idabuscar}});
-          console.log(objetobuscado)
-          return objetobuscado;
-          
-        } catch (error) {
-          console.log("error al buscar el id"+ error);
-        }
-      }
-
-      async getByIDcarritosmongo(idabuscar){
-        try {
-          let objetobuscado= await carritosmodule.find({"id": {$eq: idabuscar}});
-          return objetobuscado;
-          
-        } catch (error) {
-          console.log("error al buscar el id"+ error);
-        }
-      }
-
-      async saveMongo(objeto){
-        const archivo = await productosmodule.find();
-        let id = 1;
-        archivo.forEach((element, index) => {
-        if (element.id >= id) {
+  async saveMongo(objeto) {
+    const archivo = await productosmodule.find();
+    let id = 1;
+    archivo.forEach((element, index) => {
+      if (element.id >= id) {
         id = element.id + 1;
-          }
-        });
-        objeto.id = id;
-        objeto.timestamp= dateStr
-        let productosSaveModel= new productosmodule(objeto)
-        await productosSaveModel.save()
       }
+    });
+    objeto.id = id;
+    objeto.timestamp = dateStr;
+    let productosSaveModel = new productosmodule(objeto);
+    await productosSaveModel.save();
+  }
 
-      async saveMongoCarrito(objeto){
-        const archivo = await carritosmodule.find();
-        let id = 1;
-        archivo.forEach((element, index) => {
-        if (element.id >= id) {
+  async saveMongoCarrito(objeto) {
+    const archivo = await carritosmodule.find();
+    let id = 1;
+    archivo.forEach((element, index) => {
+      if (element.id >= id) {
         id = element.id + 1;
-          }
-        });
-        objeto.id = id;
-        objeto.timestamp= dateStr
-        let carritosSaveModel= new carritosmodule(objeto)
-        await carritosSaveModel.save()
-
       }
+    });
+    objeto.id = id;
+    objeto.timestamp = dateStr;
+    let carritosSaveModel = new carritosmodule(objeto);
+    await carritosSaveModel.save();
+  }
 
+  async updateMongo(id, objeto) {
+    objeto.timestamp = dateStr;
 
-      async updateMongo(id, objeto){
-        objeto.timestamp= dateStr;
-        
-        await productosmodule.updateOne({"id":{$eq:id}},{$set:{
-          "title":objeto.title, 
-          "price":objeto.price, 
-          "thumbnail":objeto.thumbnail,
-          "code":objeto.code,
-          "stock":objeto.stock,
-          "description":objeto.description,
-          "timestamp":objeto.timestamp,
-
-        }})
+    await productosmodule.updateOne(
+      { id: { $eq: id } },
+      {
+        $set: {
+          title: objeto.title,
+          price: objeto.price,
+          thumbnail: objeto.thumbnail,
+          code: objeto.code,
+          stock: objeto.stock,
+          description: objeto.description,
+          timestamp: objeto.timestamp,
+        },
       }
+    );
+  }
 
-      async updateMongoCarritos(id, objeto){
-
-        await carritosmodule.updateOne({"id":{$eq:id}},{$set:{
-          "productos":objeto,
-
-        }})
+  async updateMongoCarritos(id, objeto) {
+    await carritosmodule.updateOne(
+      { id: { $eq: id } },
+      {
+        $set: {
+          productos: objeto,
+        },
       }
+    );
+  }
 
-      async deletemongo(id){
-        await productosmodule.deleteOne({"id":{$eq:id}})
-      }
+  async deletemongo(id) {
+    await productosmodule.deleteOne({ id: { $eq: id } });
+  }
 
-      async deletecarritosmongo(id){
-        await carritosmodule.deleteOne({"id":{$eq:id}})
-      }
+  async deletecarritosmongo(id) {
+    await carritosmodule.deleteOne({ id: { $eq: id } });
+  }
 
-      async deleteproductosdecarrito(idcarrito, idproducto){
-        await carritosmodule.updateOne({"id":{$eq:idcarrito}},{$pull:{"productos":{"id":{$eq:idproducto}}}} ) 
-        
-      
-      }
-
-    
+  async deleteproductosdecarrito(idcarrito, idproducto) {
+    await carritosmodule.updateOne(
+      { id: { $eq: idcarrito } },
+      { $pull: { productos: { id: { $eq: idproducto } } } }
+    );
+  }
 }
-
-
-
-
-
-
-
-    

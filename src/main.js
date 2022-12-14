@@ -1,11 +1,11 @@
-import express from 'express';
+import express from "express";
 
-import { rutaProducto } from './routes/productos.js';
-import { rutaCarrito } from './routes/carrito.js';
+import { rutaProducto } from "./routes/productos.js";
+import { rutaCarrito } from "./routes/carrito.js";
 
-import { ConexionMongo } from './config.js';
+import { ConexionMongo } from "./config.js";
 
-import { ConexionFb } from './config.js';
+import { ConexionFb } from "./config.js";
 
 const aplicacion = express();
 
@@ -16,9 +16,8 @@ aplicacion.set("view engine", "ejs");
 aplicacion.use(express.json());
 aplicacion.use(express.urlencoded({ extended: true }));
 
-aplicacion.use('/api/', rutaProducto);
-aplicacion.use('/api/', rutaCarrito);
-
+aplicacion.use("/api/", rutaProducto);
+aplicacion.use("/api/", rutaCarrito);
 
 const conexionServidor = aplicacion.listen(PUERTO, () => {
   console.log(
@@ -30,5 +29,4 @@ conexionServidor.on("error", (error) =>
   console.log(`Ha ocurrido un error: ${error}`)
 );
 
-ConexionMongo()
-
+ConexionMongo();
