@@ -42,8 +42,32 @@ let dateStr =
 
       } 
 
+      async getAllfbcarritos() {
+        const query= db.collection(this.coleccion)
+        const querySnapshot= await query.get()
+        let docs =querySnapshot.docs;
+        const response= docs.map((doc)=>({
+        id:doc.data().id,
+        timestamp:doc.data().timestamp,
+        productos:doc.data().productos,
+      }))
+
+      return response
+
+      } 
+
+
       async getByIdFb(idAbuscar){
         const query= db.collection(this.coleccion);
+            let id= idAbuscar
+            const doc= query.doc(`${id}`);
+            const item= await doc.get();
+            const response= item.data();
+            return response
+      }
+
+      async getByIdFbcarritos(idAbuscar){
+            const query= db.collection(this.coleccion);
             let id= idAbuscar
             const doc= query.doc(`${id}`);
             const item= await doc.get();
@@ -63,6 +87,18 @@ let dateStr =
 
       }
 
+      async saveCarritoFb(objetox){
+        const query= db.collection(this.coleccion);
+        const querySnapshot= await query.get()
+        let docs =querySnapshot.docs;
+        let id=docs.length+1;
+        objetox.id=id;
+        objetox.timestamp= dateStr;
+        let doc=query.doc(`${id}`);
+        await doc.create(objetox)
+
+     }
+
       async updateFb(idabuscar, objeto){
             const query= db.collection(this.coleccion);
             let id= idabuscar;
@@ -73,14 +109,47 @@ let dateStr =
 
       }
 
+      async updateCarritoFb(idabuscar, objeto){
+        const query= db.collection(this.coleccion);
+        let id= idabuscar;
+        const doc= query.doc(`${id}`);
+        objeto.id=id;
+        objeto.timestamp= dateStr;
+        const item= await doc.update(objeto);
+
+  }
+
+
+
+
+
       async deleteFb(idabuscar){
         const query= db.collection(this.coleccion);
         let id= idabuscar;
         const doc= query.doc(`${id}`);
-        
         await doc.delete();
 
   }
+
+      async deleteFBcarrito(idabuscar){
+        const query= db.collection(this.coleccion);
+        let id= idabuscar;
+        const doc= query.doc(`${id}`);
+        await doc.delete();
+
+  }
+
+
+  async saveCarritoFbparadeletedeproductos(objetox){
+    const query= db.collection(this.coleccion);
+    const querySnapshot= await query.get()
+    let docs =querySnapshot.docs;
+    let id=objetox.id
+    let doc=query.doc(`${id}`);
+    await doc.create(objetox)
+
+ }
+
 
 
 
